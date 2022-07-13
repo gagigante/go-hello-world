@@ -1,51 +1,20 @@
 package main
 
-import (
-	"fmt"
-	"hello-go/example"
-	"net/http"
-)
+import "fmt"
 
 func main() {
-	const xpto int = 1
+	x := 10
+	y := &x
 
-	const (
-		x string = "aaaa"
-		y string = "bbbb"
-		z string = "cccc"
-	)
+	var z *int = &x // Sintaxe de ponteiro
 
-	print(x)
+	fmt.Println(&x)
+	fmt.Println(*y) // Imprime o valor que está registrado no endereço de memória
+	fmt.Println(*z)
 
-	res, _ := http.Get("https://google.com.br")
+	fmt.Println(abc(z))
+}
 
-	// if err != nil {
-	// 	panic("Houve um erro na requisição")
-	// }
-
-	fmt.Println(res.Body)
-
-	// var nome string = "hello world"
-	// var nome = "hello world"
-
-	a := "Gabriel"
-	b := 10
-	c := 10.44
-	d := false
-	e := 'a'
-	f := `
-		Gabriel
-		Gigante
-	`
-
-	print(a + "\n")
-
-	fmt.Printf("%T \n", a)
-	fmt.Printf("%T \n", b)
-	fmt.Printf("%T \n", c)
-	fmt.Printf("%T \n", d)
-	fmt.Printf("%T \n", e)
-	fmt.Printf("%T \n", f)
-
-	example.PrintExample()
+func abc(a *int) int {
+	return *a * 2
 }
