@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"hello-go/example"
 )
 
 type vehicle interface {
@@ -22,7 +23,7 @@ func (c Car) start() string {
 	return "**engine starts**"
 }
 
-func example(car vehicle) {
+func carExample(car vehicle) {
 	fmt.Println(car.start())
 }
 
@@ -47,5 +48,14 @@ func main() {
 
 	fmt.Println(string(result))
 
-	example(car1)
+	carExample(car1)
+
+	example.PrintExample()
+
+	casa := example.House{
+		Color:  "white",
+		Number: 10,
+	}
+
+	fmt.Println(casa)
 }

@@ -1,5 +1,16 @@
 package example
 
+// Struct that starts with lowercase are not visible for consumers
+type House struct {
+	Color  string
+	Number int
+}
+
 func PrintExample() {
-	print("Olá pacote exemplo")
+	privateFunction()
+}
+
+// Functions that starts with lowercase are not visible for consumers
+func privateFunction() {
+	print("private function")
 }
