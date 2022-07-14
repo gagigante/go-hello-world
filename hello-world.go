@@ -2,60 +2,33 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
-	"hello-go/example"
+	"net/http"
 )
 
-type vehicle interface {
-	start() string
-}
-
-type Car struct {
-	CarName string `json:"car"`
-	CarYear int    `json:"year"`
-}
-
-func (c Car) drive() {
-	print(c.CarName, " vrum vrum")
-}
-
-func (c Car) start() string {
-	return "**engine starts**"
-}
-
-func carExample(car vehicle) {
-	fmt.Println(car.start())
+type Task struct {
+	Name string
+	Done bool
 }
 
 func main() {
-	j := []byte(`{"car": "bmw", "year": 2020 }`)
+	http.HandleFunc("/", Hello)
+	http.HandleFunc("/task", TaskHandler)
+	http.ListenAndServe(":8888", nil)
+}
 
-	var car Car
+func Hello(writer http.ResponseWriter, request *http.Request) {
+	writer.Write([]byte("Hello world from my first web server"))
+}
 
-	json.Unmarshal(j, &car)
-
-	fmt.Println(car)
-
-	car1 := Car{
-		CarName: "Palio",
-		CarYear: 2008,
+func TaskHandler(writer http.ResponseWriter, request *http.Request) {
+	task := Task{
+		Name: "Setup",
+		Done: false,
 	}
 
-	car1.drive()
-	println(car1.CarName)
+	j, _ := json.Marshal(task)
+	writer.Write(j)
 
-	result, _ := json.Marshal(car1)
-
-	fmt.Println(string(result))
-
-	carExample(car1)
-
-	example.PrintExample()
-
-	casa := example.House{
-		Color:  "white",
-		Number: 10,
-	}
-
-	fmt.Println(casa)
+	// t := template.Must(template.ParseFiles("task.html"))
+	// t.Execute(writer, task)
 }
